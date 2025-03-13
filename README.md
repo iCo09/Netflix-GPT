@@ -9,6 +9,8 @@
 - Authentication Firebase setup
 - Implemented SignIn/SignUp using firebase API
 - Created a user store using redux - userSlice
+- Implemented Sign-out
+- Update profile API also
 # Features
 - Login/Signup Page
     - Form

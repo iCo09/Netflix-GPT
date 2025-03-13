@@ -1,17 +1,21 @@
 import React, { useState, useRef} from 'react'
 import Header from './Header'
 import { checkValidData } from '../utils/validate';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const[isSignInForm, setIsSignInForm] = useState(true);
   const[errorMessage, setErrorMessage] = useState(null);
 
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
   
   const handleButtonClick = () => {
     //validate the form data
@@ -26,9 +30,21 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log(user);
-          navigate('/browse');
-          // ...
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/97499344?v=4"
+          })
+          .then(() => {
+            const {uid, email, displayName, photoURL} = user //auth.currentUser;
+            dispatch(addUser({uid: uid, email: email, displayName: displayName,
+            photoURL: photoURL
+            }));
+            navigate('/browse');
+            // ...
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -67,6 +83,7 @@ const Login = () => {
         <h1 className="text-3xl font-bold py-4">{isSignInForm ? "Sign In" : "Sign Up"}</h1>
         
         {!isSignInForm && (<input 
+          ref={name}
           type="text" 
           placeholder="Full Name" 
           className="p-2 my-2 w-full bg-gray-700 text-white border border-gray-500"
