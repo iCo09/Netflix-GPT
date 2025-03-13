@@ -6,7 +6,9 @@
 - Login Form
 - Form Validation
 - useRef Hook
-
+- Authentication Firebase setup
+- Implemented SignIn/SignUp using firebase API
+- Created a user store using redux - userSlice
 # Features
 - Login/Signup Page
     - Form
