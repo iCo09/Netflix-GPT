@@ -14,6 +14,8 @@
 - Redirect if user is not logged in to "/" if    logged in then to "/browse" 
 - Unsubscribe to the onAuthStateChanged callback
 - Add hardcoded values to the constants file
+- Registered for TMDB API and got access Token
+
 
 # Features
 - Login/Signup Page
