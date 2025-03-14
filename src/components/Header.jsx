@@ -4,25 +4,48 @@ import { useNavigate } from 'react-router-dom'
 import { auth } from '../utils/firebase'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { removeUser } from '../utils/userSlice'
+import { addUser, removeUser } from '../utils/userSlice'
+import {useEffect} from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { LOGO } from '../utils/constants'
+
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(stor => stor.user);
-  const dispatch = useDispatch();
   
   const handleSignOut = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
       dispatch(removeUser());
-      navigate("/");
     }).catch((error) => { 
       navigate("/error");
     });
-  }
+  };
+
+  useEffect(() => {
+   const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if(user){
+            const {uid, email, displayName, photoURL} = user;
+            dispatch(addUser({uid: uid, email: email, displayName: displayName,
+            photoURL: photoURL
+            }));
+            navigate("/browse");
+        }
+        else{
+            dispatch(removeUser());
+            navigate("/");
+        }
+    });
+    //unsubscribe from the listener when the component is unmounted
+    return () => unsubscribe();
+},[]);
+
+
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className='w-44' src="https://imgs.search.brave.com/pB7rmF0nJIRrC9TeIkUEjCoOrOx8oh-ZcEy8Qci1QgA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODBiNTdmY2Q5OTk2/ZTI0YmM0M2M1Mjku/cG5n" 
+      <img className='w-44' src={LOGO}
       alt="logo" />
       {user?.uid && (
         <div className='flex p-2'>
