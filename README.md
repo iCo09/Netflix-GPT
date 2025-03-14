@@ -11,6 +11,10 @@
 - Created a user store using redux - userSlice
 - Implemented Sign-out
 - Update profile API also
+- Redirect if user is not logged in to "/" if    logged in then to "/browse" 
+- Unsubscribe to the onAuthStateChanged callback
+- Add hardcoded values to the constants file
+
 # Features
 - Login/Signup Page
     - Form
