@@ -15,7 +15,8 @@
 - Unsubscribe to the onAuthStateChanged callback
 - Add hardcoded values to the constants file
 - Registered for TMDB API and got access Token
-
+- created custom hooks and stored the data in redux store
+- Done with the background video and auto played it on the main container by fetching the data of trailer video
 
 # Features
 - Login/Signup Page
