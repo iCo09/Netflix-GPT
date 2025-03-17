@@ -17,6 +17,7 @@
 - Registered for TMDB API and got access Token
 - created custom hooks and stored the data in redux store
 - Done with the background video and auto played it on the main container by fetching the data of trailer video
+- Secondary container
 
 # Features
 - Login/Signup Page
