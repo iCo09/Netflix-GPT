@@ -18,6 +18,7 @@
 - created custom hooks and stored the data in redux store
 - Done with the background video and auto played it on the main container by fetching the data of trailer video
 - Secondary container
+- GPT search feature
 
 # Features
 - Login/Signup Page
