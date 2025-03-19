@@ -19,6 +19,8 @@
 - Done with the background video and auto played it on the main container by fetching the data of trailer video
 - Secondary container
 - GPT search feature
+- GPT search bar & page
+- Integrate GPT API
 
 # Features
 - Login/Signup Page
